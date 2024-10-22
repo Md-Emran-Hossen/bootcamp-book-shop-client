@@ -10,8 +10,10 @@ const Navbar = () => {
     // console.log({user});
     const navigate = useNavigate();
     const handleSignOut = () => {
-        logOut()
+
+            logOut()
             .then(() => {
+               
                 navigate("/login");
             })
             .catch((error) => {
@@ -85,9 +87,9 @@ const Navbar = () => {
                                 <div className="flex items-center space-x-2">
                                     <span className="text-sm">{user.email}</span>
                                     <img src={user?.photoURL} className="w-7 rounded-full"></img>
-                                    {/* <Link to="/login"> */}
+                                    <Link to="/login">
                                     <button onClick={handleSignOut} className="btn btn-active text-sm"> Logout </button>
-                                    {/* </Link> */}
+                                    </Link>
                                 </div>
 
                             ) : (

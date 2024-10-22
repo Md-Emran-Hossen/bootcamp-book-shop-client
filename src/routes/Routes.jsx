@@ -15,6 +15,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 // import TestRegister from "../pages/TestRegister";
 import Profile from "../pages/dashboardPages/Profile";
 import CreateCategory from "../pages/dashboardPages/CreateCategory";
+import InsertBooksPage from "../pages/dashboardPages/InsertBooksPage";
 
 const routes = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const routes = createBrowserRouter([
         </PrivateRoute>
         ,
         loader: ({ params }) =>
-          fetch(`https://bootcamp-the-breaking-news-server-ten.vercel.app/book/${params.id}`),
+          fetch(`http://localhost:5001/user/${params.id}`),
       },
       {
         path: "/blog",
@@ -87,6 +88,11 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/categories",
         element: <CreateCategory></CreateCategory>,
+        // loader: () => fetch("http://localhost:5001/categories"),
+      },
+      {
+        path: "/dashboard/books",
+        element: <InsertBooksPage></InsertBooksPage>,
         // loader: () => fetch("http://localhost:5001/categories"),
       },
     ],

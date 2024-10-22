@@ -134,6 +134,7 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setLoading(true);
+        console.log("Sign Out Function Found");
         return signOut(auth);
     };
 
@@ -176,7 +177,7 @@ const AuthProvider = ({ children }) => {
             unSubscribe();
         };
 
-    }, []);
+    }, [auth]);
 
     const authInfo = {
         user,

@@ -75,7 +75,7 @@ const LoginPage = () => {
             <title> Book Shop | Login </title>
         </Helmet>
             <div className="mt-20 p-5">
-                <Navbar></Navbar>
+                {/* <Navbar></Navbar> */}
                 <div>
                     <div className="hero-content flex-col lg:flex-row-reverse">
                         <div className="card shrink-0 shadow-2xl">

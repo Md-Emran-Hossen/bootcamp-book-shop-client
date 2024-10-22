@@ -14,7 +14,7 @@ function CreateCategory() {
     const category = { categoryName, categoryDetails };
     console.log(category);
 
-    fetch("http://localhost:5001/categoryList", {
+    fetch("http://localhost:5001/categories", {
       method: "POST",
       headers: {
         "content-type": "application/json",
