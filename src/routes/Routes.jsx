@@ -16,6 +16,10 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Profile from "../pages/dashboardPages/Profile";
 import CreateCategory from "../pages/dashboardPages/CreateCategory";
 import InsertBooksPage from "../pages/dashboardPages/InsertBooksPage";
+import AllUsers from "../pages/dashboardPages/AllUsers";
+import AllBooks from "../pages/dashboardPages/AllBooks";
+import AllCategories from "../pages/dashboardPages/AllCategories";
+import EditCategories from "../pages/dashboardPages/EditCategories";
 
 const routes = createBrowserRouter([
   {
@@ -88,12 +92,28 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/categories",
         element: <CreateCategory></CreateCategory>,
-        // loader: () => fetch("http://localhost:5001/categories"),
+      },
+      {
+        path: "/dashboard/allCategories",
+        element: <AllCategories></AllCategories>,
+        loader: () => fetch("http://localhost:5001/categories"),
+      },
+      {
+        path: "/dashboard/category/:id",
+        element: <EditCategories></EditCategories>,
+        loader: ({params}) => fetch(`http://localhost:5001/category/${params.id}`),
       },
       {
         path: "/dashboard/books",
         element: <InsertBooksPage></InsertBooksPage>,
-        // loader: () => fetch("http://localhost:5001/categories"),
+      },
+      {
+        path: "/dashboard/allBooks",
+        element: <AllBooks></AllBooks>,
+      },
+      {
+        path: "/dashboard/allUsers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

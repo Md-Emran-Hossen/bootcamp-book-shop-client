@@ -25,7 +25,7 @@ const Profile = () => {
 
       // Make API call to update user information
       const response = await fetch(
-        `https://the-master-full-stack-project-server.vercel.app/user/${user._id}`,
+        `http://localhost:5001/users/${user._id}`,
         {
           method: "PUT",
           headers: {
@@ -34,7 +34,6 @@ const Profile = () => {
           body: JSON.stringify(updatedUser),
         }
       );
-
       if (!response.ok) {
         throw new Error("Failed to update user information");
       }
@@ -97,7 +96,7 @@ const Profile = () => {
           </li>
           <hr />
           <li>
-            <strong>Unique ID:</strong> {user?.uid}
+            <strong>Unique ID:</strong> {user?.userId}
           </li>
         </ul>
       </div>
