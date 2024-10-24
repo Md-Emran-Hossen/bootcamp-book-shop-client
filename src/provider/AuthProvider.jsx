@@ -21,25 +21,13 @@ const AuthProvider = ({ children }) => {
     const auth = getAuth(app);
     const [loading, setLoading] = useState(true);
 
-    // const createUser = async (email, password, name, phone, photo, address) => {
     const createUser = async (email, password, name, phone, photo, address) => {
         setLoading(true);
 
         try {
             const userCredintial = await createUserWithEmailAndPassword(auth, email, password);
 
-            // console.log(userCredintial.user);
             const newUser = userCredintial.user;
-
-            // const inputObj = {
-            //     userId: newUser.uid,
-            //     email: newUser.email,
-            //     displayName: name,
-            //     photoUrl: photo,
-            //     phone: phone,
-            //     address: address,
-            //     isAdmin: false,
-            // }
 
             const response = await fetch("http://localhost:5001/users",
                 {
@@ -49,19 +37,17 @@ const AuthProvider = ({ children }) => {
                     },
                     body: JSON.stringify(
                         {
-                          //  inputObj
-                          userId: newUser.uid,
-                          email: newUser.email,
-                          displayName: name,
-                          photoUrl: photo,
-                          phone: phone,
-                          address: address,
-                          isAdmin: false,
+                            //  inputObj
+                            userId: newUser.uid,
+                            email: newUser.email,
+                            displayName: name,
+                            photoUrl: photo,
+                            phone: phone,
+                            address: address,
+                            isAdmin: false,
                         }),
                 }
             );
-            // console.log(response);
-            // return userCredintial;
             if (!response.ok) {
                 throw new Error("Failed to register user data.");
             }
@@ -72,45 +58,6 @@ const AuthProvider = ({ children }) => {
             throw error; // Re-throw error for further handling if needed
         }
     };
-
-    // const createProducts = async (email, password, name, photo) => {
-    //     setLoading(true);
-
-    //     try{
-    //         const userCredintial = await createUserWithEmailAndPassword(auth, email, password);
-
-    //         console.log(userCredintial.user);
-    //         const newUser = userCredintial.user;
-
-
-    //         const response = await fetch("http://localhost:5001/productList",
-    //             {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "content-type": "application/json",
-    //                 },
-    //                 body: JSON.stringify(
-    //                     {
-    //                         email: newUser.email,
-    //                         displayName: name,
-    //                         photoUrl: photo,
-    //                         userId: newUser.uid,
-    //                         isAdmin: false,
-    //                     }
-    //                 )
-    //             }
-
-    //         )
-    //         console.log(response);
-
-    //         return userCredintial
-
-    //     }
-    //     catch(error){
-    //         console.error(error);
-    //     }
-    // };
-
 
     const signIn = (email, password) => {
         setLoading(true);
@@ -152,8 +99,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            console.log("Current User from firebase", currentUser, "User ID", currentUser.uid);
-
+            
             if (currentUser) {
                 try {
                     const response = await fetch(`http://localhost:5001/user/${currentUser.uid}`);

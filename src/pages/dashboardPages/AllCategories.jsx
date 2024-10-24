@@ -5,7 +5,6 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const AllCategories = () => {
 
-    // loadedCategory replaced by loadedUsers
     const loadedCategory = useLoaderData();
     const [categories, setCategories] = useState(loadedCategory);
 

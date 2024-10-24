@@ -20,6 +20,7 @@ import AllUsers from "../pages/dashboardPages/AllUsers";
 import AllBooks from "../pages/dashboardPages/AllBooks";
 import AllCategories from "../pages/dashboardPages/AllCategories";
 import EditCategories from "../pages/dashboardPages/EditCategories";
+import EditBooks from "../pages/dashboardPages/EditBooks";
 
 const routes = createBrowserRouter([
   {
@@ -40,12 +41,10 @@ const routes = createBrowserRouter([
       },
       {
         path: "/book/:id",
-        element: <PrivateRoute>
+        element: <PrivateRoute>,
           <BookDetailsPage></BookDetailsPage>
-        </PrivateRoute>
-        ,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5001/user/${params.id}`),
+        </PrivateRoute>,
+         loader: ({params}) => fetch(`http://localhost:5001/book/${params.id}`),
       },
       {
         path: "/blog",
@@ -88,6 +87,8 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <Profile />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5001/user/${params.id}`),
       },
       {
         path: "/dashboard/categories",
@@ -105,11 +106,17 @@ const routes = createBrowserRouter([
       },
       {
         path: "/dashboard/books",
-        element: <InsertBooksPage></InsertBooksPage>,
+        element: <InsertBooksPage></InsertBooksPage>, 
+      },
+      {
+        path: "/dashboard/book/:id",
+        element: <EditBooks></EditBooks>,
+        loader: ({params}) => fetch(`http://localhost:5001/book/${params.id}`),
       },
       {
         path: "/dashboard/allBooks",
         element: <AllBooks></AllBooks>,
+        loader: () => fetch("http://localhost:5001/books"),
       },
       {
         path: "/dashboard/allUsers",

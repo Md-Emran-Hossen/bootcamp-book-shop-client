@@ -8,7 +8,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     displayName: "",
     phone: "",
-    photoURL: "",
+    photoUrl: "",
     address: "",
   });
 
@@ -22,10 +22,9 @@ const Profile = () => {
         photoUrl: formData.photoUrl,
         address: formData.address,
       };
-
       // Make API call to update user information
       const response = await fetch(
-        `http://localhost:5001/users/${user._id}`,
+        `http://localhost:5001/user/${user._id}`,
         {
           method: "PUT",
           headers: {
@@ -34,6 +33,7 @@ const Profile = () => {
           body: JSON.stringify(updatedUser),
         }
       );
+      console.log("Value of response",response);
       if (!response.ok) {
         throw new Error("Failed to update user information");
       }

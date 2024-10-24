@@ -19,21 +19,21 @@ const InsertBooksPage = () => {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     useTitle('Add Book');
-    
+
     const imageHostKey = import.meta.env.VITE_IMAGEBB_KEY;
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const res = await fetch('http://localhost:5001/categories');
-              
+
                 const data = await res.json();
                 setCategories(data);
 
                 const tempCategoryObject = {};
                 data.forEach(category => {
                     tempCategoryObject[category.categoryName] = category._id;
-                });                
+                });
                 setCategoryObject(tempCategoryObject);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -80,18 +80,17 @@ const InsertBooksPage = () => {
         const imageData = new FormData();
         imageData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
-        
+
         try {
             const res = await fetch(url, {
                 method: 'POST',
                 body: imageData
             });
             const imgData = await res.json();
-            console.log(imgData);
 
             if (imgData.success) {
-                const book = {   
-                    categoryId: categoryObject[formData.category],                         
+                const book = {
+                    categoryId: categoryObject[formData.category],
                     category: formData.category,
                     image: imgData.data.url,
                     bookName: formData.name,
@@ -100,7 +99,7 @@ const InsertBooksPage = () => {
                     description: formData.description,
                     status: 'available',
                 };
-
+                // console.log("Book Object Value", book);
                 // Save book information to the database
                 const result = await fetch('http://localhost:5001/books', {
                     method: 'POST',
@@ -108,16 +107,28 @@ const InsertBooksPage = () => {
                         'content-type': 'application/json',
                     },
                     body: JSON.stringify(book)
-                });
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // console.log(data);
+                        if (data.insertedId) {
+                            toast.success(`${formData.name} is added successfully`, {
+                                position: "top-right",
+                            });
+                            navigate('/dashboard/allBooks');
+                        }
+                        e.target.reset();
+                    });
 
-                const data = await result.json();
-                console.log(data);
-                if (data.success) {
-                    toast.success(`${formData.name} is added successfully`);
-                    navigate('/dashboard/myproducts');
-                } else {
-                    toast.error('Failed to add book.');
-                }
+                // const data = await result.json();
+                // console.log("Book Data Found", data);
+                // console.log("Book Name =", formData.name);
+                // if (data.success) {
+                //     toast.success(`${formData.name} is added successfully`);
+                //     // navigate('/dashboard/myproducts');
+                // } else {
+                //     toast.error('Failed to add book.');
+                // }
             } else {
                 toast.error('Image upload failed. Please try again.');
             }
@@ -130,7 +141,7 @@ const InsertBooksPage = () => {
     return (
         <div>
             <div className='w-10/12 p-7'>
-                <h2 className="text-2xl text-[#FF652E] md:text-center text-left font-bold">Add a Book</h2>
+                <h2 className="text-3xl md:text-center text-left font-bold">Add a Book</h2>
                 <form onSubmit={handleSubmit} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">
                     <div>
                         <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">

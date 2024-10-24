@@ -12,11 +12,11 @@ const BookDetails = () => {
     const [books, setBook] = useState([]);
 
     useEffect(() => {
-        fetch('https://bootcamp-the-breaking-news-server-ten.vercel.app/books')
+        fetch('http://localhost:5001/books')
             .then(res => res.json())
             .then(data => setBook(data));
     })
-
+    console.log("Value of Book:=", books);
     return (
         <>
             
@@ -39,13 +39,13 @@ const BookDetails = () => {
                                 </figure>
                                 <div className="card-body text-center">
                                     <p> <span className="font-bold">Book Name:</span> {book.bookName}</p>
-                                    <p><span className="font-bold"> Tags: </span> {book.tags[0]} </p>
-                                    <p><span className="font-bold"> Author:  </span> {book.author} </p>
                                     <p><span className="font-bold">Category: </span> {book.category} </p>
-                                    <p><span className="font-bold">Rating: </span> {book.rating} </p>
+                                    <p><span className="font-bold"> Resale Price:  </span> {book.resalePrice} </p>      
+                                    <p><span className="font-bold">Status: </span> {book.status} </p>
+                                    <p><span className="font-bold"> Description: </span> {book.description} </p>
 
                                     <div className="m-5">
-                                        <Link to={`/book/${book.bookId}`}
+                                        <Link to={`/book/${book._id}`}
                                             className="hover:text-orange-500 text-xl font-bold bg-orange-100 cursor-pointer rounded p-3">
                                             Book Details
                                         </Link>
