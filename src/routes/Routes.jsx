@@ -21,6 +21,7 @@ import AllBooks from "../pages/dashboardPages/AllBooks";
 import AllCategories from "../pages/dashboardPages/AllCategories";
 import EditCategories from "../pages/dashboardPages/EditCategories";
 import EditBooks from "../pages/dashboardPages/EditBooks";
+import CategoryBasedBookDataLoad from "../book/CategoryBasedBookDataLoad";
 
 const routes = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ const routes = createBrowserRouter([
          loader: ({params}) => fetch(`http://localhost:5001/book/${params.id}`),
       },
       {
+        path: "/categoryy/:id",
+        element: <CategoryBasedBookDataLoad></CategoryBasedBookDataLoad>,
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:5001/categoryy/${params.id}`
+          ),
+      },
+      {
         path: "/blog",
         element: <Blog></Blog>,
       },
@@ -54,10 +63,6 @@ const routes = createBrowserRouter([
         path: "/faq",
         element: <FaqPage></FaqPage>,
       },
-      // {
-      //   path: "/test",
-      //   element: <TestRegister></TestRegister>,
-      // },
     ],
   },
   {

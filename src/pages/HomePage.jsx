@@ -4,10 +4,10 @@ import AboutUs from '../shared/AboutUs'
 
 import ContactUs from '../shared/ContactUs'
 
+
 export default function HomePage() {
   return (
     <> 
-      
       <BookDetails></BookDetails>
       <AboutUs></AboutUs>
       <ContactUs></ContactUs>

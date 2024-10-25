@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import useTitle from '../../hooks/useTitle';
 import { AuthContext } from "../../provider/AuthProvider";
 
 const InsertBooksPage = () => {
