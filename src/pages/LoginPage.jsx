@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import Navbar from "../shared/Navbar";
+// import Navbar from "../shared/Navbar";
 import toast from "react-hot-toast";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { Helmet } from "react-helmet-async";

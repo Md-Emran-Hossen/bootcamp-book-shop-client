@@ -6,7 +6,7 @@ const CategoryBasedBooks = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5001/categories")
+        fetch("https://bootcamp-book-shop-server-psi.vercel.app/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data));
     }, []);

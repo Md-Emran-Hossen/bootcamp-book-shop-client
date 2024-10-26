@@ -13,13 +13,14 @@ const BookDetails = () => {
     const [books, setBook] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/books')
+        fetch('https://bootcamp-book-shop-server-psi.vercel.app/books')
             .then(res => res.json())
             .then(data => setBook(data));
-    })
+    });
+    console.log("Book Data Found",books);
+
     return (
         <>
-            
             <Banner></Banner>
             <HowItWorks></HowItWorks>
             <CategoryBasedBooks></CategoryBasedBooks>
@@ -43,7 +44,7 @@ const BookDetails = () => {
                                     <p><span className="font-bold">Category: </span> {book.category} </p>
                                     <p><span className="font-bold"> Resale Price:  </span> {book.resalePrice} </p>      
                                     <p><span className="font-bold">Status: </span> {book.status} </p>
-                                    <p><span className="font-bold"> Description: </span> {book.description.slice(0, 50)} </p>
+                                    <p><span className="font-bold"> Review: </span> {book.review.slice(0, 50)} </p>
 
                                     <div className="m-5">
                                         <Link to={`/book/${book._id}`}

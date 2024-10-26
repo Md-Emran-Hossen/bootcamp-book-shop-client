@@ -12,9 +12,9 @@ function CreateCategory() {
     const categoryDetails = form.get("categoryDetails");
 
     const category = { categoryName, categoryDetails };
-    console.log(category);
+    // console.log(category);
 
-    fetch("http://localhost:5001/categories", {
+    fetch("https://bootcamp-book-shop-server-psi.vercel.app/categories", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -23,7 +23,7 @@ function CreateCategory() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.insertedId) {
           toast.success("Category Added Successfully", {
             position: "top-right",

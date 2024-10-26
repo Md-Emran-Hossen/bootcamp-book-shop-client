@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
 
             const newUser = userCredintial.user;
 
-            const response = await fetch("http://localhost:5001/users",
+            const response = await fetch("https://bootcamp-book-shop-server-psi.vercel.app/users",
                 {
                     method: "POST",
                     headers: {
@@ -102,7 +102,7 @@ const AuthProvider = ({ children }) => {
             
             if (currentUser) {
                 try {
-                    const response = await fetch(`http://localhost:5001/user/${currentUser.uid}`);
+                    const response = await fetch(`https://bootcamp-book-shop-server-psi.vercel.app/user/${currentUser.uid}`);
 
                     if (!response.ok) {
                         throw new error("Failed to fetch");

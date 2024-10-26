@@ -42,14 +42,14 @@ const CategoryBasedBookDataLoad = () => {
                                     <img
                                         src={book.image}
                                         alt={book.bookName}
-                                        className="w-56 rounded h-36" />
+                                        className="w-56 rounded h-36"/>
                                 </figure>
                                 <div className="card-body text-center">
                                     <p> <span className="font-bold">Book Name:</span> {book.bookName}</p>
                                     <p><span className="font-bold">Category: </span> {book.category} </p>
                                     <p><span className="font-bold"> Resale Price:  </span> {book.resalePrice} </p>
                                     <p><span className="font-bold">Status: </span> {book.status} </p>
-                                    <p><span className="font-bold"> Description: </span> {book.description.slice(0, 50)} </p>
+                                    <p><span className="font-bold"> Description: </span> {book.review.slice(0, 50)} </p>
 
                                     <div className="m-5">
                                         <Link to={`/book/${book._id}`}

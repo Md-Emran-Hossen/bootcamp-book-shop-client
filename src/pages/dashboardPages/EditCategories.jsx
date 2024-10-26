@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 
@@ -16,7 +17,7 @@ const EditCategories = () => {
 
         const updatedCategory = { categoryName, categoryDetails };
 
-        fetch(`http://localhost:5001/category/${loadedCategory._id}`, {
+        fetch(`https://bootcamp-book-shop-server-psi.vercel.app/category/${loadedCategory._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

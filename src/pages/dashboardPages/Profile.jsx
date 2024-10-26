@@ -8,7 +8,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     displayName: "",
     phone: "",
-    photoUrl: "",
+    // photoUrl: "",
     address: "",
   });
 
@@ -19,12 +19,12 @@ const Profile = () => {
         ...user,
         displayName: formData.displayName,
         phone: formData.phone,
-        photoUrl: formData.photoUrl,
+        // photoUrl: formData.photoUrl,
         address: formData.address,
       };
       // Make API call to update user information
       const response = await fetch(
-        `http://localhost:5001/user/${user._id}`,
+        `https://bootcamp-book-shop-server-psi.vercel.app/user/${user._id}`,
         {
           method: "PUT",
           headers: {
@@ -51,7 +51,7 @@ const Profile = () => {
     setFormData({
       displayName: user.displayName || "",
       phone: user.phone || "",
-      photoUrl: user.photoUrl || "",
+      // photoUrl: user.photoUrl || "",
       address: user.address || "",
     });
     setIsEditModalOpen(true);
@@ -138,7 +138,7 @@ const Profile = () => {
                 }
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-sm font-medium">Photo URL:</label>
               <input
                 type="text"
@@ -148,7 +148,7 @@ const Profile = () => {
                   setFormData({ ...formData, photoUrl: e.target.value })
                 }
               />
-            </div>
+            </div> */}
             <div className="mb-4">
               <label className="block text-sm font-medium">Address:</label>
               <input

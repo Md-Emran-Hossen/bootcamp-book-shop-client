@@ -13,7 +13,7 @@ const AllUsers = () => {
     const [formData, setFormData] = useState({
         displayName: "",
         phone: "",
-        photoUrl: "",
+        // photoUrl: "",
         address: "",
     });
 
@@ -21,7 +21,7 @@ const AllUsers = () => {
     const fetchUsers = async () => {
         try {
             const response = await fetch(
-                "http://localhost:5001/users"
+                "https://bootcamp-book-shop-server-psi.vercel.app/users"
             );
             const data = await response.json();
             setUsers(data);
@@ -45,7 +45,7 @@ const AllUsers = () => {
             console.log({ updatedUser });
 
             await fetch(
-                `http://localhost:5001/user/${selectedUser._id}`,
+                `https://bootcamp-book-shop-server-psi.vercel.app/user/${selectedUser._id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -66,9 +66,9 @@ const AllUsers = () => {
         try {
             console.log({ selectedUser });
             const updatedUser = { ...selectedUser, isAdmin: !selectedUser?.isAdmin };
-
+             console.log(updatedUser);
             await fetch(
-                `http://localhost:5001/user/${selectedUser._id}`,
+                `https://bootcamp-book-shop-server-psi.vercel.app/user/${selectedUser._id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -90,7 +90,7 @@ const AllUsers = () => {
         setFormData({
             displayName: user.displayName || "",
             phone: user.phone || "",
-            photoUrl: user.photoUrl || "",
+            // photoUrl: user.photoUrl || "",
             address: user.address || "",
         });
         setIsEditModalOpen(true);
@@ -106,13 +106,13 @@ const AllUsers = () => {
                 ...selectedUser,
                 displayName: formData.displayName,
                 phone: formData.phone,
-                photoUrl: formData.photoUrl,
+                // photoUrl: formData.photoUrl,
                 address: formData.address,  
             };
 
        
             await fetch(
-                `http://localhost:5001/user/${selectedUser._id}`,
+                `https://bootcamp-book-shop-server-psi.vercel.app/user/${selectedUser._id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -237,7 +237,7 @@ const AllUsers = () => {
                                 }
                             />
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label className="block text-sm font-medium">Photo URL:</label>
                             <input
                                 type="text"
@@ -247,7 +247,7 @@ const AllUsers = () => {
                                     setFormData({ ...formData, photoUrl: e.target.value })
                                 }
                             />
-                        </div>
+                        </div> */}
                         <div className="mb-4">
                             <label className="block text-sm font-medium">Address:</label>
                             <input

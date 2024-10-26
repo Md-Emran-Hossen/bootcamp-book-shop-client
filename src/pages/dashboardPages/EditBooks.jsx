@@ -1,4 +1,5 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditBooks = () => {
 
@@ -13,11 +14,15 @@ const EditBooks = () => {
 
         const bookName = form.get("bookName");
         const resalePrice = form.get("resalePrice");
-        const description = form.get("description");
+        const author = form.get("author");
+        const publisher = form.get("publisher");
+        const rating = form.get("rating");
+        const totalPages = form.get("totalPages");
+        const review = form.get("review");
+        
+        const updatedBook = { bookName, resalePrice, author, publisher, rating, totalPages, review };
 
-        const updatedBook = { bookName, resalePrice, description };
-
-        fetch(`http://localhost:5001/book/${loadedBook._id}`, {
+        fetch(`https://bootcamp-book-shop-server-psi.vercel.app/book/${loadedBook._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -103,24 +108,107 @@ const EditBooks = () => {
                     </div>
                 </div>
 
-
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
                         <label
                             className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                            htmlFor="description"
+                            htmlFor="author"
                         >
-                            Book Description
+                            Author
                         </label>
                     </div>
                     <div className="md:w-1/3">
                         <input
                             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
       leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                            id="description"
+                            id="author"
                             type="text"
-                            name="description"
-                            defaultValue={loadedBook.description}
+                            name="author"
+                            defaultValue={loadedBook.author}
+                        />
+                    </div>
+                </div>
+
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label
+                            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                            htmlFor="publisher"
+                        >
+                            Publisher
+                        </label>
+                    </div>
+                    <div className="md:w-1/3">
+                        <input
+                            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+      leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            id="publisher"
+                            type="text"
+                            name="publisher"
+                            defaultValue={loadedBook.publisher}
+                        />
+                    </div>
+                </div>
+
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label
+                            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                            htmlFor="rating"
+                        >
+                            Rating
+                        </label>
+                    </div>
+                    <div className="md:w-1/3">
+                        <input
+                            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+      leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            id="rating"
+                            type="text"
+                            name="rating"
+                            defaultValue={loadedBook.rating}
+                        />
+                    </div>
+                </div>
+
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label
+                            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                            htmlFor="totalPages"
+                        >
+                            Total Pages
+                        </label>
+                    </div>
+                    <div className="md:w-1/3">
+                        <input
+                            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+      leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            id="totalPages"
+                            type="text"
+                            name="totalPages"
+                            defaultValue={loadedBook.totalPages}
+                        />
+                    </div>
+                </div>
+
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label
+                            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                            htmlFor="review"
+                        >
+                            Book Review
+                        </label>
+                    </div>
+                    <div className="md:w-1/3">
+                        <input
+                            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+      leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            id="review"
+                            type="text"
+                            name="review"
+                            defaultValue={loadedBook.review}
                         />
                     </div>
                 </div>

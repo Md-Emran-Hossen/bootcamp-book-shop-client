@@ -1,5 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { HiPencilAlt } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
 import { Link, useLoaderData } from "react-router-dom";
 
 
@@ -10,7 +12,7 @@ const AllCategories = () => {
 
     const handleDelete = (_id) => {
         console.log(_id);
-        fetch(`http://localhost:5001/category/${_id}`, {
+        fetch(`https://bootcamp-book-shop-server-psi.vercel.app/category/${_id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
@@ -84,19 +86,17 @@ const AllCategories = () => {
                                 </span>
                                 <Link to={`/dashboard/category/${category._id}`}>
                                     <button
-                                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 
-            border border-blue-500 hover:border-transparent rounded-none"
+                                        className="btn btn-outline btn-accent m-1"
                                     >
-                                        Edit
+                                       <HiPencilAlt />  Edit
                                     </button>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;
                                 <button
                                     onClick={() => handleDelete(category._id)}
-                                    className="bg-red-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 
-            border border-blue-500 hover:border-transparent rounded-none"
+                                   className="btn btn-outline btn-error m-1"
                                 >
-                                    Delete
+                                   <MdDelete /> Delete
                                 </button>
                             </td>
                         </tr>

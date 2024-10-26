@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { AuthContext } from "../../provider/AuthProvider";
+import { AuthContext } from '../../provider/AuthProvider';
+
 
 const InsertBooksPage = () => {
     const { user } = useContext(AuthContext);
@@ -13,18 +14,18 @@ const InsertBooksPage = () => {
         resalePrice: '',
         image: null,
         category: '',
-        description: ''
+        review: ''
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-    useTitle('Add Book');
+    // useTitle('Add Book');
 
     const imageHostKey = import.meta.env.VITE_IMAGEBB_KEY;
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await fetch('http://localhost:5001/categories');
+                const res = await fetch('https://bootcamp-book-shop-server-psi.vercel.app/categories');
 
                 const data = await res.json();
                 setCategories(data);
@@ -44,8 +45,8 @@ const InsertBooksPage = () => {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formData.name) {
-            newErrors.name = "Product Name is Required";
+        if (!formData.bookName) {
+            newErrors.bookName = "Book Name is Required";
         }
         if (!formData.resalePrice) {
             newErrors.resalePrice = "Resell Price is Required";
@@ -92,42 +93,48 @@ const InsertBooksPage = () => {
                     categoryId: categoryObject[formData.category],
                     category: formData.category,
                     image: imgData.data.url,
-                    bookName: formData.name,
+                    bookName: formData.bookName,
+
+                    author: formData.author,
+                    publisher: formData.publisher,
+                    rating: formData.rating,
+                    totalPages: formData.totalPages,
+
                     resalePrice: formData.resalePrice,
                     postingTime: new Date(),
-                    description: formData.description,
+                    review: formData.review,
                     status: 'available',
                 };
-                // console.log("Book Object Value", book);
+                
                 // Save book information to the database
-                const result = await fetch('http://localhost:5001/books', {
+                const result = await fetch('https://bootcamp-book-shop-server-psi.vercel.app/books', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
                     },
                     body: JSON.stringify(book)
                 })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        // console.log(data);
-                        if (data.insertedId) {
-                            toast.success(`${formData.name} is added successfully`, {
-                                position: "top-right",
-                            });
-                            navigate('/dashboard/allBooks');
-                        }
-                        e.target.reset();
-                    });
+                    // .then((res) => res.json())
+                    // .then((data) => {
+                        
+                    //     if (data.insertedId) {
+                    //         toast.success(`${formData.bookName} is added successfully`, {
+                    //             position: "top-right",
+                    //         });
+                    //         navigate('/dashboard/allBooks');
+                    //     }
+                    //     e.target.reset();
+                    // });
 
-                // const data = await result.json();
+                const data = await result.json();
                 // console.log("Book Data Found", data);
-                // console.log("Book Name =", formData.name);
-                // if (data.success) {
-                //     toast.success(`${formData.name} is added successfully`);
-                //     // navigate('/dashboard/myproducts');
-                // } else {
-                //     toast.error('Failed to add book.');
-                // }
+                if (data.insertedId) {
+                    console.log("Data object found:", data.insertedId);
+                    toast.success(`${formData.bookName} is added successfully`);
+                     navigate('/dashboard/allBooks');
+                } else {
+                    toast.error('Failed to add book.');
+                }
             } else {
                 toast.error('Image upload failed. Please try again.');
             }
@@ -139,38 +146,38 @@ const InsertBooksPage = () => {
 
     return (
         <div>
-            <div className='w-10/12 p-7'>
-                <h2 className="text-3xl md:text-center text-left font-bold">Add a Book</h2>
+ 
+                <h2 className="text-3xl md:text-left font-bold pl-10">Add a Book</h2>
                 <form onSubmit={handleSubmit} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">
-                    <div>
-                        <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
-                            <div className='flex input-bordered rounded-none'>
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="border p-2 border-indigo-400 mb-3">
+                            <div className="flex input-bordered rounded-none">
                                 <label className="label"> <span className="label-text">Book Name:</span></label>
                                 <input
                                     type="text"
-                                    name="name"
-                                    value={formData.name}
+                                    name="bookName"
+                                    value={formData.bookName}
                                     onChange={handleInputChange}
-                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                    className="input input-bordered w-full rounded-none bg-white"
                                 />
                             </div>
                             {errors.name && <p className='text-red-500 text-xs'>{errors.name}</p>}
                         </div>
 
-                        <div className='flex justify-center w-full max-w-xs items-center border p-2 border-indigo-400 mb-3'>
-                            <div className="form-control w-11/12 max-w-xs mr-4 mt-1">
-                                <label className="label"> <span className="label-text">Resell Price</span></label>
+                        <div className="border p-2 border-indigo-400 mb-3">
+                            <div className="flex input-bordered rounded-none">
+                                <label className="label"> <span className="label-text">Resale Price: </span></label>
                                 <input
                                     type="text"
                                     name="resalePrice"
                                     value={formData.resalePrice}
                                     onChange={handleInputChange}
-                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                    className="input input-bordered w-full rounded-none bg-white"
                                 />
+                                </div>
                                 {errors.resalePrice && <p className='text-red-600 text-xs'>{errors.resalePrice}</p>}
-                            </div>
                         </div>
-
+         
                         <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
                             <div className='flex justify-center items-center max-w-xs'>
                                 <label className="label"> <span className="label-text">Upload Photo:</span></label>
@@ -180,15 +187,14 @@ const InsertBooksPage = () => {
                                     onChange={handleFileChange}
                                     className="input input-bordered w-full max-w-xs p-1 rounded-none bg-white"
                                 />
+                                  </div>
                                 {errors.image && <p className='text-red-500 text-xs'>{errors.image}</p>}
-                            </div>
+                          
                         </div>
-                    </div>
-
-                    <div className='ml-0 md:ml-12'>
+                              
                         <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
                             <div className='flex justify-center items-center max-w-xs'>
-                                <label className="label"> <span className="label-text">Product Category:</span></label>
+                                <label className="label"> <span className="label-text">Book Category:</span></label>
                                 <select
                                     name="category"
                                     value={formData.category}
@@ -208,11 +214,63 @@ const InsertBooksPage = () => {
 
                         <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
                             <div className='flex input-bordered rounded-none'>
-                                <label className="label"> <span className="label-text">Description:</span></label>
+                                <label className="label"> <span className="label-text">Author:</span></label>
                                 <input
                                     type="text"
-                                    name="description"
-                                    value={formData.description}
+                                    name="author"
+                                    value={formData.author}
+                                    onChange={handleInputChange}
+                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
+                            <div className='flex input-bordered rounded-none'>
+                                <label className="label"> <span className="label-text">Publisher:</span></label>
+                                <input
+                                    type="text"
+                                    name="publisher"
+                                    value={formData.publisher}
+                                    onChange={handleInputChange}
+                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
+                            <div className='flex input-bordered rounded-none'>
+                                <label className="label"> <span className="label-text">Rating:</span></label>
+                                <input
+                                    type="text"
+                                    name="rating"
+                                    value={formData.rating}
+                                    onChange={handleInputChange}
+                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
+                            <div className='flex input-bordered rounded-none'>
+                                <label className="label"> <span className="label-text">Total Pages:</span></label>
+                                <input
+                                    type="text"
+                                    name="totalPages"
+                                    value={formData.totalPages}
+                                    onChange={handleInputChange}
+                                    className="input input-bordered w-full max-w-xs rounded-none bg-white"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-control w-full max-w-xs border p-2 border-indigo-400 mb-3">
+                            <div className='flex input-bordered rounded-none'>
+                                <label className="label"> <span className="label-text">Review:</span></label>
+                                <input
+                                    type="text"
+                                    name="review"
+                                    value={formData.review}
                                     onChange={handleInputChange}
                                     className="input input-bordered w-full max-w-xs rounded-none bg-white"
                                 />
@@ -221,7 +279,7 @@ const InsertBooksPage = () => {
                         <input className='btn btn-info md:w-80 w-64 rounded-none mt-1' value="Add Product" type="submit" />
                     </div>
                 </form>
-            </div>
+           
         </div>
     );
 };

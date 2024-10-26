@@ -12,7 +12,6 @@ import BookDetails from "../book/BookDetails";
 import BookDetailsPage from "../book/BookDetailsPage";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
-// import TestRegister from "../pages/TestRegister";
 import Profile from "../pages/dashboardPages/Profile";
 import CreateCategory from "../pages/dashboardPages/CreateCategory";
 import InsertBooksPage from "../pages/dashboardPages/InsertBooksPage";
@@ -22,6 +21,7 @@ import AllCategories from "../pages/dashboardPages/AllCategories";
 import EditCategories from "../pages/dashboardPages/EditCategories";
 import EditBooks from "../pages/dashboardPages/EditBooks";
 import CategoryBasedBookDataLoad from "../book/CategoryBasedBookDataLoad";
+
 
 const routes = createBrowserRouter([
   {
@@ -45,14 +45,14 @@ const routes = createBrowserRouter([
         element: <PrivateRoute>,
           <BookDetailsPage></BookDetailsPage>
         </PrivateRoute>,
-         loader: ({params}) => fetch(`http://localhost:5001/book/${params.id}`),
+         loader: ({params}) => fetch(`https://bootcamp-book-shop-server-psi.vercel.app/book/${params.id}`),
       },
       {
         path: "/categoryy/:id",
         element: <CategoryBasedBookDataLoad></CategoryBasedBookDataLoad>,
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5001/categoryy/${params.id}`
+            `https://bootcamp-book-shop-server-psi.vercel.app/categoryy/${params.id}`
           ),
       },
       {
@@ -93,7 +93,7 @@ const routes = createBrowserRouter([
         path: "",
         element: <Profile />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5001/user/${params.id}`),
+          fetch(`https://bootcamp-book-shop-server-psi.vercel.app/user/${params.id}`),
       },
       {
         path: "/dashboard/categories",
@@ -102,26 +102,27 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/allCategories",
         element: <AllCategories></AllCategories>,
-        loader: () => fetch("http://localhost:5001/categories"),
+        loader: () => fetch("https://bootcamp-book-shop-server-psi.vercel.app/categories"),
       },
       {
         path: "/dashboard/category/:id",
         element: <EditCategories></EditCategories>,
-        loader: ({params}) => fetch(`http://localhost:5001/category/${params.id}`),
+        loader: ({params}) => fetch(`https://bootcamp-book-shop-server-psi.vercel.app/category/${params.id}`),
       },
       {
         path: "/dashboard/books",
         element: <InsertBooksPage></InsertBooksPage>, 
+        // element:<AddBook></AddBook>,
       },
       {
         path: "/dashboard/book/:id",
         element: <EditBooks></EditBooks>,
-        loader: ({params}) => fetch(`http://localhost:5001/book/${params.id}`),
+        loader: ({params}) => fetch(`https://bootcamp-book-shop-server-psi.vercel.app/book/${params.id}`),
       },
       {
         path: "/dashboard/allBooks",
         element: <AllBooks></AllBooks>,
-        loader: () => fetch("http://localhost:5001/books"),
+        loader: () => fetch("https://bootcamp-book-shop-server-psi.vercel.app/books"),
       },
       {
         path: "/dashboard/allUsers",

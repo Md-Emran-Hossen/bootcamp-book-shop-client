@@ -7,10 +7,10 @@ export default function Banner() {
            <div className="w-full mx-auto mt-10 p-5">
             <div className="hero bg-base-200 rounded">
                 <div className="hero-content flex-col md:flex-col lg:flex-row-reverse">
-                    <diV className="w-1/2">
+                    <diV className="w-full lg:w-1/2 mt-8 md:mt-0">
                         <img
                             src= {image}
-                            className="rounded-md shadow-2xl w-full mt-10 h-60"
+                            className="rounded-md shadow-2xl mt-10 h-36 md:h-60"
                         />
                     </diV>
 
