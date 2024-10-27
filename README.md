@@ -11,7 +11,7 @@ Currently, two official plugins are available:
 This is used for DoICT Bootcamp. Trainee ID: 44
 
 # Live Link
-https://bootcamp-tot-book-shop-website-1.netlify.app/
+https://bootcamp-book-shop-client.netlify.app/
 
 ### Technology Used:
 -> React.js
