@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaEdit, FaUserShield } from "react-icons/fa";
 import { ImBlocked } from "react-icons/im";
 
@@ -66,7 +67,7 @@ const AllUsers = () => {
         try {
             console.log({ selectedUser });
             const updatedUser = { ...selectedUser, isAdmin: !selectedUser?.isAdmin };
-             console.log(updatedUser);
+            console.log(updatedUser);
             await fetch(
                 `https://bootcamp-book-shop-server-psi.vercel.app/user/${selectedUser._id}`,
                 {
@@ -107,10 +108,10 @@ const AllUsers = () => {
                 displayName: formData.displayName,
                 phone: formData.phone,
                 // photoUrl: formData.photoUrl,
-                address: formData.address,  
+                address: formData.address,
             };
 
-       
+
             await fetch(
                 `https://bootcamp-book-shop-server-psi.vercel.app/user/${selectedUser._id}`,
                 {
@@ -139,105 +140,109 @@ const AllUsers = () => {
 
 
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Users List</h2>
-            <table className="min-w-full bg-white border">
-                <thead>
-                    <tr className="bg-gray-200 text-gray-600 text-left">
-                        <th className="py-2 px-4 border">#</th>
-                        <th className="py-2 px-4 border">Name</th>
-                        <th className="py-2 px-4 border">Email</th>
-                        <th className="py-2 px-4 border">Image</th>
-                        <th className="py-2 px-4 border">Role</th>
-                        <th className="py-2 px-4 border">Status</th>
-                        <th className="py-2 px-4 border">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user, index) => (
-                        <tr key={user._id} className="hover:bg-gray-100">
-                            <td className="py-2 px-4 border">{index + 1}</td>
-                            <td className="py-2 px-4 border">{user?.displayName || "N/A"}</td>
-                            <td className="py-2 px-4 border">{user?.email}</td>
-                            <td className="py-2 px-4 border">
-                                <img
-                                    src={user?.photoUrl || "https://via.placeholder.com/50"}
-                                    alt="user"
-                                    className="w-10 rounded-full"
-                                />
-                            </td>
-                            <td className="py-2 px-4 border">
-                                {user.isAdmin ? "Admin" : "User"}
-                            </td>
-                            <td className="py-2 px-4 border">
-                                {user.isBlocked ? "Blocked" : "Active"}
-                            </td>
-                            <td className="py-2 px-4 border">
-                                <button
-                                    onClick={() => handleClickedSetUserOrAdminRole(user)}
-                                    className={`mr-2 p-2 rounded-full text-white ${user.isAdmin ? "bg-green-500" : "bg-blue-500"
-                                        } ${user.email === "super-admin@dev-master.com"
-                                            ? "opacity-50 cursor-not-allowed"
-                                            : ""
-                                        }`}
-                                    title="Toggle Admin/User"
-                                    disabled={user.email === "super-admin@dev-master.com"}
-                                >
-                                    <FaUserShield />
-                                </button>
-
-                                <button
-                                    onClick={() => openEditModal(user)}
-                                    className="mr-2 p-2 rounded-full bg-yellow-500 text-white"
-                                    title="Edit User"
-                                >
-                                    <FaEdit />
-                                </button>
-                                <button
-                                    onClick={() => handleClickedSetBlock(user)}
-                                    className={`p-2 rounded-full bg-red-500 text-white ${user.email === "super-admin@dev-master.com"
-                                            ? "opacity-50 cursor-not-allowed"
-                                            : ""
-                                        }`}
-                                    title="Block User"
-                                    disabled={user.email === "super-admin@dev-master.com"}
-                                >
-                                    <ImBlocked />
-                                </button>
-                            </td>
+        <>
+            <Helmet>
+                <title> Book Shop | Users </title>
+            </Helmet>
+            <div className="container mx-auto p-4">
+                <h2 className="text-2xl font-bold mb-4">Users List</h2>
+                <table className="min-w-full bg-white border">
+                    <thead>
+                        <tr className="bg-gray-200 text-gray-600 text-left">
+                            <th className="py-2 px-4 border">#</th>
+                            <th className="py-2 px-4 border">Name</th>
+                            <th className="py-2 px-4 border">Email</th>
+                            <th className="py-2 px-4 border">Image</th>
+                            <th className="py-2 px-4 border">Role</th>
+                            <th className="py-2 px-4 border">Status</th>
+                            <th className="py-2 px-4 border">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {users.map((user, index) => (
+                            <tr key={user._id} className="hover:bg-gray-100">
+                                <td className="py-2 px-4 border">{index + 1}</td>
+                                <td className="py-2 px-4 border">{user?.displayName || "N/A"}</td>
+                                <td className="py-2 px-4 border">{user?.email}</td>
+                                <td className="py-2 px-4 border">
+                                    <img
+                                        src={user?.photoUrl || "https://via.placeholder.com/50"}
+                                        alt="user"
+                                        className="w-10 rounded-full"
+                                    />
+                                </td>
+                                <td className="py-2 px-4 border">
+                                    {user.isAdmin ? "Admin" : "User"}
+                                </td>
+                                <td className="py-2 px-4 border">
+                                    {user.isBlocked ? "Blocked" : "Active"}
+                                </td>
+                                <td className="py-2 px-4 border">
+                                    <button
+                                        onClick={() => handleClickedSetUserOrAdminRole(user)}
+                                        className={`mr-2 p-2 rounded-full text-white ${user.isAdmin ? "bg-green-500" : "bg-blue-500"
+                                            } ${user.email === "super-admin@dev-master.com"
+                                                ? "opacity-50 cursor-not-allowed"
+                                                : ""
+                                            }`}
+                                        title="Toggle Admin/User"
+                                        disabled={user.email === "super-admin@dev-master.com"}
+                                    >
+                                        <FaUserShield />
+                                    </button>
 
-            {/* Edit Modal */}
-            {isEditModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg w-1/3">
-                        <h3 className="text-xl mb-4">Edit User</h3>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium">Name:</label>
-                            <input
-                                type="text"
-                                className="w-full p-2 border rounded"
-                                value={formData.displayName}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, displayName: e.target.value })
-                                }
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium">Phone:</label>
-                            <input
-                                type="text"
-                                className="w-full p-2 border rounded"
-                                value={formData.phone}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, phone: e.target.value })
-                                }
-                            />
-                        </div>
-                        {/* <div className="mb-4">
+                                    <button
+                                        onClick={() => openEditModal(user)}
+                                        className="mr-2 p-2 rounded-full bg-yellow-500 text-white"
+                                        title="Edit User"
+                                    >
+                                        <FaEdit />
+                                    </button>
+                                    <button
+                                        onClick={() => handleClickedSetBlock(user)}
+                                        className={`p-2 rounded-full bg-red-500 text-white ${user.email === "super-admin@dev-master.com"
+                                            ? "opacity-50 cursor-not-allowed"
+                                            : ""
+                                            }`}
+                                        title="Block User"
+                                        disabled={user.email === "super-admin@dev-master.com"}
+                                    >
+                                        <ImBlocked />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                {/* Edit Modal */}
+                {isEditModalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg w-1/3">
+                            <h3 className="text-xl mb-4">Edit User</h3>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Name:</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-2 border rounded"
+                                    value={formData.displayName}
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, displayName: e.target.value })
+                                    }
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Phone:</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-2 border rounded"
+                                    value={formData.phone}
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, phone: e.target.value })
+                                    }
+                                />
+                            </div>
+                            {/* <div className="mb-4">
                             <label className="block text-sm font-medium">Photo URL:</label>
                             <input
                                 type="text"
@@ -248,84 +253,85 @@ const AllUsers = () => {
                                 }
                             />
                         </div> */}
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium">Address:</label>
-                            <input
-                                type="text"
-                                className="w-full p-2 border rounded"
-                                value={formData.address}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, address: e.target.value })
-                                }
-                            />
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Address:</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-2 border rounded"
+                                    value={formData.address}
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, address: e.target.value })
+                                    }
+                                />
+                            </div>
+                            <button
+                                onClick={handleUpdate}
+                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                            >
+                                Save Changes
+                            </button>
+                            <button
+                                onClick={() => setIsEditModalOpen(false)}
+                                className="bg-red-500 text-white px-4 py-2 rounded ml-4"
+                            >
+                                Cancel
+                            </button>
                         </div>
-                        <button
-                            onClick={handleUpdate}
-                            className="bg-blue-500 text-white px-4 py-2 rounded"
-                        >
-                            Save Changes
-                        </button>
-                        <button
-                            onClick={() => setIsEditModalOpen(false)}
-                            className="bg-red-500 text-white px-4 py-2 rounded ml-4"
-                        >
-                            Cancel
-                        </button>
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Block Modal */}
-            {isBlockModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg w-1/3">
-                        <h3 className="text-xl mb-4">
-                            {selectedUser.isBlocked
-                                ? "Unblock this user?"
-                                : "Block this user?"}
-                        </h3>
-                        <button
-                            onClick={handleBlock}
-                            className={`bg-red-500 text-white px-4 py-2 rounded ${selectedUser.isBlocked ? "bg-green-500" : "bg-red-500"
-                                }`}
-                        >
-                            {selectedUser.isBlocked ? "Unblock" : "Block"}
-                        </button>
-                        <button
-                            onClick={() => setIsBlockModalOpen(false)}
-                            className="bg-gray-500 text-white px-4 py-2 rounded ml-4"
-                        >
-                            Cancel
-                        </button>
+                {/* Block Modal */}
+                {isBlockModalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg w-1/3">
+                            <h3 className="text-xl mb-4">
+                                {selectedUser.isBlocked
+                                    ? "Unblock this user?"
+                                    : "Block this user?"}
+                            </h3>
+                            <button
+                                onClick={handleBlock}
+                                className={`bg-red-500 text-white px-4 py-2 rounded ${selectedUser.isBlocked ? "bg-green-500" : "bg-red-500"
+                                    }`}
+                            >
+                                {selectedUser.isBlocked ? "Unblock" : "Block"}
+                            </button>
+                            <button
+                                onClick={() => setIsBlockModalOpen(false)}
+                                className="bg-gray-500 text-white px-4 py-2 rounded ml-4"
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Toggle Admin Modal */}
-            {isAdminToggleModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg w-1/3">
-                        <h3 className="text-xl mb-4">
-                            {selectedUser.isAdmin
-                                ? "Revoke Admin Privileges?"
-                                : "Grant Admin Privileges?"}
-                        </h3>
-                        <button
-                            onClick={handleToggleAdmin}
-                            className={`bg-green-500 text-white px-4 py-2 rounded`}
-                        >
-                            {selectedUser.isAdmin ? "Revoke" : "Grant"}
-                        </button>
-                        <button
-                            onClick={() => setIsAdminToggleModalOpen(false)}
-                            className="bg-gray-500 text-white px-4 py-2 rounded ml-4"
-                        >
-                            Cancel
-                        </button>
+                {/* Toggle Admin Modal */}
+                {isAdminToggleModalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg w-1/3">
+                            <h3 className="text-xl mb-4">
+                                {selectedUser.isAdmin
+                                    ? "Revoke Admin Privileges?"
+                                    : "Grant Admin Privileges?"}
+                            </h3>
+                            <button
+                                onClick={handleToggleAdmin}
+                                className={`bg-green-500 text-white px-4 py-2 rounded`}
+                            >
+                                {selectedUser.isAdmin ? "Revoke" : "Grant"}
+                            </button>
+                            <button
+                                onClick={() => setIsAdminToggleModalOpen(false)}
+                                className="bg-gray-500 text-white px-4 py-2 rounded ml-4"
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )}
+            </div>
+        </>
     );
 };
 

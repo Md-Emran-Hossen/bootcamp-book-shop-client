@@ -35,7 +35,7 @@ function CreateCategory() {
   return (
     <>
       <Helmet>
-        <title> Book Shop | Category </title>
+        <title> Book Shop | Add Category </title>
       </Helmet>
       <div className="mx-auto mt-20">
         <div className="flex justify-center justify-items-center">

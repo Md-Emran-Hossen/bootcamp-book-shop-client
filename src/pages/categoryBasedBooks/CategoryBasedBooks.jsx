@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { NavLink } from 'react-router-dom';
 
 const CategoryBasedBooks = () => {
@@ -13,6 +14,9 @@ const CategoryBasedBooks = () => {
     // console.log(categories);
     return (
         <div>
+             <Helmet>
+                <title> Book Shop | Category Based Books  </title>
+            </Helmet>
             {/* 
             {categories.map((category) => (
                 <NavLink

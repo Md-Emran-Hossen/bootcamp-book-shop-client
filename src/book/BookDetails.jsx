@@ -21,6 +21,9 @@ const BookDetails = () => {
 
     return (
         <>
+            {/* <Helmet>
+                <title> Book Shop | Books </title>
+            </Helmet> */}
             <Banner></Banner>
             <HowItWorks></HowItWorks>
             <CategoryBasedBooks></CategoryBasedBooks>

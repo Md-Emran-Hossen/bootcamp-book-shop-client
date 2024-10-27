@@ -1,12 +1,16 @@
 // import React from 'react'
 
 // import Footer from "../shared/Footer";
+import { Helmet } from "react-helmet-async";
 import Navbar from "../shared/Navbar";
 
 
 export default function FaqPage() {
     return (
         <>
+          <Helmet>
+                <title> Book Shop | FAQ </title>
+            </Helmet>
         <Navbar></Navbar>
             <div className="mt-10 mb-10 pt-10">
 

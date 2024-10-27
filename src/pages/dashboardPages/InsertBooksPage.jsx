@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../provider/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 
 const InsertBooksPage = () => {
@@ -146,6 +147,9 @@ const InsertBooksPage = () => {
 
     return (
         <div>
+             <Helmet>
+                <title> Book Shop | Add Book </title>
+            </Helmet>
  
                 <h2 className="text-3xl md:text-left font-bold pl-10">Add a Book</h2>
                 <form onSubmit={handleSubmit} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">

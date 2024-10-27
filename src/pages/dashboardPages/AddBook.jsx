@@ -6,6 +6,7 @@ import {useForm} from 'react-hook-form';
 // import Loading from '../../Shared/Loading/Loading';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../provider/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 // import useSeller from '../../../hooks/useSeller';
 // import useTitle from '../../../hooks/useTitle';
 
@@ -95,6 +96,9 @@ const AddBook = () => {
     }
     return (
         <div>
+             <Helmet>
+                <title> Book Shop | Add Book </title>
+            </Helmet>
             <div className='w-10/12 p-7'>
                 <h2 className="text-2xl text-[#FF652E] md:text-center text-left font-bold">Add a Product</h2>
                 <form onSubmit={handleSubmit(handleAddProduct)} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">
