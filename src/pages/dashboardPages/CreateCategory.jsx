@@ -37,10 +37,10 @@ function CreateCategory() {
       <Helmet>
         <title> Book Shop | Add Category </title>
       </Helmet>
-      <div className="mx-auto mt-20">
+      <div className="mx-auto mt-20 p-2">
         <div className="flex justify-center justify-items-center">
           <h1 className="text-3xl font-bold text-center text-lime-600 mb-10">
-            Category Add Page
+          Add a Category
           </h1>
           &nbsp;&nbsp;&nbsp;
           {/* <Link to="/categories">

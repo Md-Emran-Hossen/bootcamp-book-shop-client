@@ -11,11 +11,15 @@ const InsertBooksPage = () => {
     const [categories, setCategories] = useState([]);
     const [categoryObject, setCategoryObject] = useState({});
     const [formData, setFormData] = useState({
-        name: '',
+        bookName: '',
         resalePrice: '',
         image: null,
         category: '',
-        review: ''
+		author: '',
+		publisher: '',
+		rating: '',
+		totalPages: '',
+		review: ''
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -152,7 +156,7 @@ const InsertBooksPage = () => {
             </Helmet>
  
                 <h2 className="text-3xl md:text-left font-bold pl-10">Add a Book</h2>
-                <form onSubmit={handleSubmit} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">
+                            {/* <form onSubmit={handleSubmit} className="border shadow-lg py-2 px-6 mt-3 flex flex-col md:flex-row">
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="border p-2 border-indigo-400 mb-3">
                             <div className="flex input-bordered rounded-none">
@@ -282,7 +286,207 @@ const InsertBooksPage = () => {
                         </div>
                         <input className='btn btn-info md:w-80 w-64 rounded-none mt-1' value="Add Product" type="submit" />
                     </div>
+                </form> */}
+
+<h2 className="text-3xl md:text-center font-bold mt-5 p-2 underline">Add a Book</h2>
+            <div className="mx-auto mt-5 p-2">
+                <form onSubmit={handleSubmit} className="w-full">
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Book Name:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="bookName"
+                                value={formData.bookName}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.bookName && <p className='text-red-500 text-xs'>{errors.bookName}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Resale Price:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="resalePrice"
+                                value={formData.resalePrice}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.resalePrice && <p className='text-red-500 text-xs'>{errors.resalePrice}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Upload Photo:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="file"
+                                name="image"
+                                onChange={handleFileChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.image && <p className='text-red-500 text-xs'>{errors.image}</p>}
+
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Category:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                        <select
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleInputChange}
+                                    className ="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                >
+                                    <option value="">Select category</option>
+                                    {Object.keys(categoryObject).map((category, index) => (
+                                        <option key={index} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </select>
+                        </div>
+                        {errors.category && <p className='text-red-500 text-xs'>{errors.category}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Author:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="author"
+                                value={formData.author}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.author && <p className='text-red-500 text-xs'>{errors.author}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Publisher:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="publisher"
+                                value={formData.publisher}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.publisher && <p className='text-red-500 text-xs'>{errors.publisher}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Rating:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="rating"
+                                value={formData.rating}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.rating && <p className='text-red-500 text-xs'>{errors.rating}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Total Pages:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="totalPages"
+                                value={formData.totalPages}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.totalPages && <p className='text-red-500 text-xs'>{errors.totalPages}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center mb-6">
+                        <div className="md:w-1/3">
+                            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                Review:
+                            </label>
+                        </div>
+                        <div className="md:w-1/3">
+                            <input
+                                type="text"
+                                name="review"
+                                value={formData.review}
+                                onChange={handleInputChange}
+                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded-none w-full py-2 px-4 text-gray-700 
+              leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                        </div>
+                        {errors.review && <p className='text-red-500 text-xs'>{errors.review}</p>}
+                    </div>
+
+                    <div className="md:flex md:items-center">
+                        <div className="md:w-1/3"></div>
+                        <div className="md:w-2/3">
+
+                        <input 
+                           className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white 
+                           font-bold py-2 px-4 mb-10 rounded" 
+                            value="Add Book" 
+                            type="submit" 
+                        />
+                         
+                        </div>
+                    </div>
+
+                   
+
                 </form>
+            </div>
            
         </div>
     );

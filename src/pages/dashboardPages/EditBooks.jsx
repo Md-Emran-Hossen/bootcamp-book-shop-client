@@ -47,10 +47,10 @@ const EditBooks = () => {
             <Helmet>
                 <title> Book Shop | Edit Book </title>
             </Helmet>
-            <div className="mx-auto mt-20">
+            <div className="mx-auto mt-20 p-2">
                 <div className="flex justify-center justify-items-center">
                     <h1 className="text-3xl font-bold text-center mb-10">
-                        Update Book :
+                        Update Book:
                     </h1>
                     &nbsp;&nbsp;&nbsp;
                     <Link to="/">
@@ -67,7 +67,7 @@ const EditBooks = () => {
                             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
   py-2 px-4 border border-blue-500 hover:border-transparent rounded-tl-md rounded-br-md"
                         >
-                            Book
+                            Book List
                         </button>
                     </Link>
                 </div>
